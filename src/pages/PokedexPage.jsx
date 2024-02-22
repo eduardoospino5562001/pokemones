@@ -1,23 +1,26 @@
-import React, { useEffect, useRef } from 'react'; 
+import React, { useEffect, useRef, useState } from 'react'; 
 import { useDispatch, useSelector } from 'react-redux';
 import { setPokemonName } from '../store/slices/pokemonName.slice';
 import useFetch from '../hooks/useFetch';
 import PokeCard from '../components/pokedexPage/PokeCard';
+import SelectType from '../components/pokedexPage/SelectType';
 
 const PokedexPage = () => {
 
+  const [SelectValue, setSelectValue] = useState('allPokemons');
   const trainerName = useSelector(store => store.trainerName);
   const pokemonName = useSelector(store => store.pokemonName);
   const dispatch = useDispatch();
-  const [pokemons, getPokemons] = useFetch();
+  const [pokemons, getPokemons, getPerType] = useFetch();
   
   useEffect(() => {
-    const url = ' https://pokeapi.co/api/v2/pokemon/?limit=5';
-    getPokemons(url);
+    if (SelectValue==='allPokemons') {
+      const url = ' https://pokeapi.co/api/v2/pokemon/?limit=30';
+      getPokemons(url);
+    } else {
+      getPerType(SelectValue);
+    }
   }, []);
-  
-
-
   
 
   const textInput = useRef();
@@ -27,11 +30,18 @@ const PokedexPage = () => {
     dispatch(setPokemonName(textInput.current.value.trim().toLowerCase()));
   }
 
-  console.log(pokemons);
+  //console.log(pokemons);
 
-  const cbFilter = (element) => {
-
+  const cbFilter = () => {
+    if (pokemonName) {
+       return pokemons?.results.filter(element => element.name.
+        includes(pokemonName));
+    } else{
+      return pokemons?.results;
+    }
   }
+
+  console.log(setSelectValue);
 
   return (
     <div>
@@ -41,10 +51,13 @@ const PokedexPage = () => {
         <input type="text" ref={textInput} />
         <button>Buscar</button>
       </form>
+      <SelectType
+        setSelectValue={setSelectValue}
+      />
       </section>
       <section>
         {
-          pokemons?.results.filter().map(poke => (
+          cbFilter()?.map(poke => (
             <PokeCard
               key={poke.url}
               url={poke.url}
