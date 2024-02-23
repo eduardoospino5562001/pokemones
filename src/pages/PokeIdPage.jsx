@@ -11,9 +11,6 @@ const PokeIdPage = () => {
     const url = `https://pokeapi.co/api/v2/pokemon/${param.id}`;
     getPokeData(url);
   }, [])
-  
-  console.log(pokeData);
-  
 
   return (
     <article>

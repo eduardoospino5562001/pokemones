@@ -12,13 +12,13 @@ const PokeCard = ({url}) => {
       getPokemon(url);
     }, [])
     
-    //console.log(url);
+   
 
     const handleClick = () => {
         navigate(`/pokedex/${pokemon.id}`);
     }
 
-    //console.log(pokemon);
+    
 
   return (
     <article onClick={handleClick}>

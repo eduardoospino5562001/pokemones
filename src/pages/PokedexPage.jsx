@@ -20,7 +20,7 @@ const PokedexPage = () => {
     } else {
       getPerType(SelectValue);
     }
-  }, []);
+  }, [SelectValue]);
   
 
   const textInput = useRef();
@@ -28,9 +28,8 @@ const PokedexPage = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(setPokemonName(textInput.current.value.trim().toLowerCase()));
+    textInput.current.value = '';
   }
-
-  //console.log(pokemons);
 
   const cbFilter = () => {
     if (pokemonName) {
@@ -40,8 +39,6 @@ const PokedexPage = () => {
       return pokemons?.results;
     }
   }
-
-  console.log(setSelectValue);
 
   return (
     <div>

@@ -18,7 +18,7 @@ const useFetch = () => {
             })
             .catch(err => console.log(err));
     }
-    return [apiData, getApi];
+    return [apiData, getApi, getApiType];
 }
 
 export default useFetch;
