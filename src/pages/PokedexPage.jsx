@@ -4,6 +4,7 @@ import { setPokemonName } from '../store/slices/pokemonName.slice';
 import useFetch from '../hooks/useFetch';
 import PokeCard from '../components/pokedexPage/PokeCard';
 import SelectType from '../components/pokedexPage/SelectType';
+import './styles/pokedexPage.css'
 
 const PokedexPage = () => {
 
@@ -41,18 +42,9 @@ const PokedexPage = () => {
   }
 
   return (
-    <div>
-      <section>
-      <h3><span>Bienvenido {trainerName}, </span>Aqui podras encontrar tu pokemon favorito</h3>
-      <form onSubmit={handleSubmit}>
-        <input type="text" ref={textInput} />
-        <button>Buscar</button>
-      </form>
-      <SelectType
-        setSelectValue={setSelectValue}
-      />
-      </section>
-      <section>
+    <div className='pokedex'>
+      
+      <section className='poke_container'>
         {
           cbFilter()?.map(poke => (
             <PokeCard
